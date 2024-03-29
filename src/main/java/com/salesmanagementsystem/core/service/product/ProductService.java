@@ -56,6 +56,4 @@ public class ProductService {
     public List<Object[]> getPricingAnalysis() {
         return productRepository.getPricingAnalysis();
     }
-
-    // Add additional methods if needed
 }
