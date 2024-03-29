@@ -22,8 +22,8 @@ import lombok.ToString;
 public class SaleRequestDTO {
 
     private Date creationDate;
-    private ClientRequestDTO client;
-    private User seller;
+    private Long clientId;
+    private Long sellerId;
     private double total;
     private List<TransactionRequestDTO> transactions;
 }
