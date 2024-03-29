@@ -2,25 +2,17 @@ package com.salesmanagementsystem.core.model.transaction;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.JoinColumn;
+
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
-import org.antlr.v4.runtime.misc.NotNull;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
 import com.salesmanagementsystem.core.model.SalesManagementObject;
-import com.salesmanagementsystem.core.model.client.Client;
 import com.salesmanagementsystem.core.model.product.Product;
 import com.salesmanagementsystem.core.model.sale.Sale;
-import com.salesmanagementsystem.core.model.user.User;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -37,11 +29,11 @@ import lombok.ToString;
 public class Transaction extends SalesManagementObject {
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @NotFound(action = NotFoundAction.IGNORE)
     private Product product;
     
     @ManyToOne
-    @JoinColumn(name = "sale_id")
+    @NotFound(action = NotFoundAction.IGNORE)
     private Sale sale;
     
     @Column(nullable = false)
@@ -55,5 +47,8 @@ public class Transaction extends SalesManagementObject {
         this.sale = sale;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public Transaction() {
     }
 }
