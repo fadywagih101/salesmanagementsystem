@@ -1,6 +1,5 @@
 package com.salesmanagementsystem.core.model.product;
 
-import org.hibernate.envers.Audited;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 
@@ -19,7 +18,6 @@ import java.util.Date;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Audited
 @SQLDelete(sql = "UPDATE user SET deleted = true WHERE id=?")
 @SQLRestriction("status <> 'DELETED'")
 @ToString

@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
-import org.hibernate.envers.Audited;
 
 import com.salesmanagementsystem.core.model.SalesManagementObject;
 
@@ -18,7 +17,6 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Audited
 @SQLDelete(sql = "UPDATE user SET deleted = true WHERE id=?")
 @SQLRestriction("status <> 'DELETED'")
 @ToString
