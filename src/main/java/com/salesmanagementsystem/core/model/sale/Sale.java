@@ -3,6 +3,7 @@ package com.salesmanagementsystem.core.model.sale;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -13,6 +14,7 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.salesmanagementsystem.core.model.SalesManagementObject;
 import com.salesmanagementsystem.core.model.client.Client;
@@ -27,6 +29,7 @@ import lombok.ToString;
 
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 @EqualsAndHashCode(callSuper = true)
 @Entity
 @SQLDelete(sql = "UPDATE user SET deleted = true WHERE id=?")
