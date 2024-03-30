@@ -3,35 +3,41 @@ package com.salesmanagementsystem.core.service.user;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import com.salesmanagementsystem.core.data.repository.UserRepository;
 import com.salesmanagementsystem.core.model.user.User;
 
+@Service
 public class UserService {
-
-      @Autowired
     private UserRepository userRepository;
 
     @Autowired
-	private PasswordEncoder passwordEncoder;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
-    public List<User> findAllUsers() {
-		return (List<User>) userRepository.findAll();
-	}
+    public User getUserById(Long id) throws NotFoundException {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException());
+    }
 
-	public User findById(long id) {
-		return userRepository.findById(id).orElse(null);
-	}
+    public User createUser(User user) {
+        return userRepository.save(user);
+    }
 
-	public User findByUsername(String name) {
-		return userRepository.findByUsername(name);
-	}
+    public User updateUser(User user) {
+        // Perform any necessary validation or business logic here
+        return userRepository.save(user);
+    }
 
-    public User saveUser(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		User newUser = userRepository.save(user);
-		return newUser; 
-	}
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }
